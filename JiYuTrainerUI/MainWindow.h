@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 #include "stdafx.h"
 
 #define MAIN_WND_CLS_NAME L"JiYuTrainerWindow"
-#define MAIN_WND_NAME L"JiYu Trainer Main Window"
+#define MAIN_WND_NAME L"JiYu Kill"
 
 #ifdef JIYUTRAINERUI_EXPORTS
 

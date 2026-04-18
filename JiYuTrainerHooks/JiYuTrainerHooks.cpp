@@ -569,7 +569,7 @@ void VBoom() {
 	*/
 }
 void VSendMessageBack(LPCWSTR buff, HWND hDlg) {
-	HWND receiveWindow = FindWindow(NULL, L"JiYu Trainer Main Window");
+	HWND receiveWindow = FindWindow(NULL, L"JiYu Kill");
 	if (receiveWindow) {
 		COPYDATASTRUCT copyData = { 0 };
 		copyData.lpData = (PVOID)buff;
