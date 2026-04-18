@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stdafx.h"
 #ifdef JTEXPORT
 #include "resource.h"
@@ -12,7 +12,7 @@ extern "C" int JiYuTrainerUICommonEntry(int i);
 
 #endif
 
-#define APP_TITLE L"JiYuTrainer"
+#define APP_TITLE L"jykill"
 #define APP_FAIL_SYSTEM_NOT_SUPPORT -2
 #define APP_FAIL_PIRACY_VERSION -3
 #define APP_FAIL_INSTALL -6
