@@ -21,15 +21,15 @@ BOOL GenerateCrashInfo(PEXCEPTION_POINTERS pExInfo, LPCWSTR info_file_name, LPCW
 	FILE*fp = NULL;
 	_wfopen_s(&fp, info_file_name, L"w");
 	if (fp) {
-		fwprintf_s(fp, L"=== jykill ===== %04d/%02d/%02d %02d:%02d:%02d ===========", tm.wYear, tm.wMonth, tm.wDay, tm.wHour, tm.wMinute, tm.wSecond);
+		fwprintf_s(fp, L"=== JiYuTrainer ===== %04d/%02d/%02d %02d:%02d:%02d ===========", tm.wYear, tm.wMonth, tm.wDay, tm.wHour, tm.wMinute, tm.wSecond);
 		fwprintf_s(fp, L"\r\n应用程序错误 ：Address : 0x%08x  Code : 0x%08X  (0x%08X)",
 			(ULONG_PTR)pExInfo->ExceptionRecord->ExceptionAddress, pExInfo->ExceptionRecord->ExceptionCode,
 			pExInfo->ExceptionRecord->ExceptionFlags);
-		fwprintf_s(fp, L"\r\n=== jykill =====================================");
+		fwprintf_s(fp, L"\r\n=== JiYuTrainer =====================================");
 		fwprintf_s(fp, L"\r\n我们生成了关于描述这个错误的错误报告(不包含您的个人信息)：");
 		fwprintf_s(fp, L"\r\n=== 文件内容 =====================================");
 		fwprintf_s(fp, L"\r\n[错误转储文件] %s", file_name);
-		fwprintf_s(fp, L"\r\n[程序运行日志] %s\\jykill.log", dir);
+		fwprintf_s(fp, L"\r\n[程序运行日志] %s\\JiYuTrainer.log", dir);
 		fwprintf_s(fp, L"\r\n=== %hs =================================", CURRENT_VERSION);
 		fclose(fp);
 		return TRUE;
@@ -44,10 +44,10 @@ LONG GenerateMiniDump(PEXCEPTION_POINTERS pExInfo)
 	SYSTEMTIME tm;
 	GetLocalTime(&tm);//获取时间
 	TCHAR file_name[128];
-	swprintf_s(file_name, L"%s\\jykillCrashDump%d%02d%02d-%02d%02d%02d.dmp", dmp_path,
+	swprintf_s(file_name, L"%s\\JiYuTrainerCrashDump%d%02d%02d-%02d%02d%02d.dmp", dmp_path,
 		tm.wYear, tm.wMonth, tm.wDay, tm.wHour, tm.wMinute, tm.wSecond);//设置dmp文件名称
 	TCHAR info_file_name[128];
-	swprintf_s(info_file_name, L"%s\\jykillCrashInfo%d%02d%02d-%02d%02d%02d.txt", dmp_path,
+	swprintf_s(info_file_name, L"%s\\JiYuTrainerCrashInfo%d%02d%02d-%02d%02d%02d.txt", dmp_path,
 		tm.wYear, tm.wMonth, tm.wDay, tm.wHour, tm.wMinute, tm.wSecond);
 
 	//Create file
@@ -75,7 +75,7 @@ LONG GenerateMiniDump(PEXCEPTION_POINTERS pExInfo)
 
 		TCHAR info[300];
 		swprintf_s(info, L"应用程序出现了一个错误，%s。\n%s", (hasCrashInfo ? L"需要关闭，已生成关于此错误的报告" : L"并且无法生成错误转储文件"), expInfo);
-		MessageBoxTimeoutW(NULL, info, L"jykill 应用程序错误", MB_ICONERROR | MB_SYSTEMMODAL, 0, 3600);
+		MessageBoxTimeoutW(NULL, info, L"JiYuTrainer 应用程序错误", MB_ICONERROR | MB_SYSTEMMODAL, 0, 3600);
 
 		if (hasCrashInfo)
 		{
@@ -88,7 +88,7 @@ LONG GenerateMiniDump(PEXCEPTION_POINTERS pExInfo)
 	{
 		TCHAR info[300];
 		swprintf_s(info, L"应用程序出现了一个错误，并且无法生成错误转储文件。\n%s\nFail to create dump file: %s \nLast Error : %d\n现在应用程序即将关闭。", expInfo, file_name, GetLastError());
-		MessageBox(NULL, info, L"jykill 应用程序错误", MB_ICONERROR | MB_SYSTEMMODAL);
+		MessageBox(NULL, info, L"JiYuTrainer 应用程序错误", MB_ICONERROR | MB_SYSTEMMODAL);
 	}
 	return EXCEPTION_EXECUTE_HANDLER;
 }
@@ -105,14 +105,14 @@ EXPORT_CFUNC(void*) GetSciterAPI()
 }
 EXPORT_CFUNC(VOID) ShowAppStartupFail(int rs) {
 	if (rs == APP_FAIL_SYSTEM_NOT_SUPPORT)
-		MessageBox(NULL, L"运行本程序最低要求 Windows XP，请使用更高版本的系统", L"jykill - 错误", MB_ICONERROR);
+		MessageBox(NULL, L"运行本程序最低要求 Windows XP，请使用更高版本的系统", L"JiYuTrainer - 错误", MB_ICONERROR);
 	else if (rs == APP_FAIL_ALEDAY_RUN)
-		MessageBox(0, L"已经有一个程序正在运行，同时只能运行一个实例，请关闭之前那个", L"jykill - 错误", MB_ICONERROR);
+		MessageBox(0, L"已经有一个程序正在运行，同时只能运行一个实例，请关闭之前那个", L"JiYuTrainer - 错误", MB_ICONERROR);
 	else if (rs == APP_FAIL_PIRACY_VERSION)
-		MessageBox(0, L"您可能是盗版软件的受害者，您现在运行的是被修改过的 jykill ，我们建议您至官网下载使用安全版本。", L"jykill - 错误", MB_ICONERROR);
+		MessageBox(0, L"您可能是盗版软件的受害者，您现在运行的是被修改过的 JiYuTrainer ，我们建议您至官网下载使用安全版本。", L"JiYuTrainer - 错误", MB_ICONERROR);
 	else if (rs == APP_FAIL_INSTALL) {
 		FAST_STR_BINDER(err, L"安装失败，具体错误请查看日志文件 : \n%s", 300, currentApp->GetPartFullPath(PART_LOG));
-		MessageBox(0, err, L"jykill - 错误", MB_ICONERROR);
+		MessageBox(0, err, L"JiYuTrainer - 错误", MB_ICONERROR);
 	}
 }
 EXPORT_CFUNC(void*) GetApp() { return currentApp; }
