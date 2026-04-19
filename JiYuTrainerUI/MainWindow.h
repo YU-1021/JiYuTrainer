@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿﻿#pragma once
 #include "stdafx.h"
 
 #define MAIN_WND_CLS_NAME L"JiYuTrainerWindow"
